@@ -3,14 +3,25 @@ import Display from "./display";
 
 export default class App {
   static createProjectForm = document.querySelector("#new-project");
+  static createTodoForm = document.querySelector("#new-task");
+  static currentProject;
   static projects = [];
 
   static start() {
-    App.attachListeners();
+    App.attachFormListeners();
   }
 
-  static attachListeners() {
+  static attachFormListeners() {
     App.createProjectForm.addEventListener("submit", App.addProject);
+    App.createTodoForm.addEventListener("submit", App.addTodo);
+  }
+
+  static attachProjectTabListener(project) {
+    const projectTab = document.querySelector(`[data-title="${project.title}"]`);
+    projectTab.addEventListener("click", () => {
+      App.currentProject = project.title;
+      Display.renderProject(project)
+    });
   }
 
   static addProject(event) {
@@ -30,9 +41,9 @@ export default class App {
     }
 
     const project = new Project(projectTitle, projectDescription);
-    App.projects.push(project);
     Display.renderProjectTab(project);
+    App.attachProjectTabListener(project);
+    App.projects.push(project);
     App.createProjectForm.reset();
   }
-
 }

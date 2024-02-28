@@ -10,6 +10,7 @@ export default class Display {
   }
 
   static renderProject(project) {
+    Display.clearContent();
     const title = document.createElement("h2");
     title.textContent = project.title;
     const list = document.createElement("ul");
