@@ -1,8 +1,13 @@
 export default class Display {
   static content = document.querySelector("#content");
+  static projects = document.querySelector("#projects");
 
-  static renderAllProjects(projects) {
-    //TODO: Render display to view all projects
+  static renderProjectList(projects) {
+    for (const project of projects) {
+      const button = document.createElement("button");
+      button.innerText = project.title;
+      this.projects.appendChild(button);
+    }
   }
 
   static renderProject(project) {
