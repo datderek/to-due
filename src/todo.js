@@ -2,7 +2,7 @@ export default class Todo {
   constructor(title, description = "", priority = 0, dueDate = "") {
     // Calls setters
     this.title = title;
-    this.descripton = description;
+    this.description = description;
     this.priority = priority;
     this.dueDate = dueDate;
   }
