@@ -1,9 +1,10 @@
 import Project from "./project";
 import Display from "./display";
+import Todo from "./todo";
 
 export default class App {
   static createProjectForm = document.querySelector("#new-project");
-  static createTodoForm = document.querySelector("#new-task");
+  static createTodoForm = document.querySelector("#new-todo");
   static currentProject;
   static projects = [];
 
@@ -19,7 +20,7 @@ export default class App {
   static attachProjectTabListener(project) {
     const projectTab = document.querySelector(`[data-title="${project.title}"]`);
     projectTab.addEventListener("click", () => {
-      App.currentProject = project.title;
+      App.currentProject = project;
       Display.renderProject(project)
     });
   }
@@ -27,8 +28,8 @@ export default class App {
   static addProject(event) {
     event.preventDefault();
     const formData = new FormData(App.createProjectForm);
-    const projectTitle = formData.get("title");
-    const projectDescription = formData.get("description");
+    const projectTitle = formData.get("project-title");
+    const projectDescription = formData.get("project-description");
 
     // Displays an error message and exits if project title is not unique
     for (const project of App.projects) {
@@ -45,5 +46,18 @@ export default class App {
     App.attachProjectTabListener(project);
     App.projects.push(project);
     App.createProjectForm.reset();
+  }
+
+  static addTodo(event) {
+    event.preventDefault();
+    const formData = new FormData(App.createTodoForm);
+    const title = formData.get("todo-title");
+    const description = formData.get("todo-description");
+    const priority = formData.get("todo-priority");
+    const dueDate = formData.get("todo-duedate");
+
+    const todo = new Todo(title, description, priority, dueDate);
+    App.currentProject.addTodo(todo);
+    Display.renderProject(App.currentProject);
   }
 }
