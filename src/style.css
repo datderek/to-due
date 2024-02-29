@@ -83,7 +83,7 @@ dialog > button:hover {
 
 #main {
   display: grid;
-  grid-template-rows: 1fr 12fr;
+  grid-template-rows: 80px 12fr;
   height: 100%;
 }
 
@@ -93,7 +93,12 @@ dialog > button:hover {
 #nav {
   display: flex;
   align-items: center;
-  padding: 1rem;
+  padding: 1.5rem 2rem;
+  gap: 1rem;
+}
+
+#logo {
+  height: 50px;
 }
 
 .dropdown {
@@ -101,11 +106,13 @@ dialog > button:hover {
   width: 200px;
   border-radius: 1rem 1rem 1rem 1rem;
   background-color: white;
+  height: 100%;
   box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.1);
 }
 
 #current-project {
   padding: 0.5rem;
+  line-height: 1em;
   text-align: center;
   text-wrap: nowrap;
   overflow: hidden;
@@ -114,8 +121,8 @@ dialog > button:hover {
 #projects {
   display: none;
   position: absolute;
-  background-color: white;
   width: 100%;
+  background-color: white;
   overflow: hidden;
 }
 
@@ -130,6 +137,7 @@ dialog > button:hover {
 
 .dropdown:hover {
   border-radius: 1rem 1rem 0rem 0rem;
+  border-bottom: none;
 }
 
 .dropdown:hover #projects {
@@ -142,15 +150,49 @@ dialog > button:hover {
   background-color: var(--light-gray);
 }
 
-#nav > #show-todo-modal {
+#show-todo-modal {
+  height: 100%;
+  aspect-ratio: 1 / 1;
   margin-right: auto;
+  background-color: white;
+  outline: none;
+  border: none;
+  border-radius: 50%;
+  font-size: 0;
+  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.1);
+  transition: transform 250ms ease;
 }
 
-#nav > #pfp {
+#show-todo-modal > img {
+  aspect-ratio: 1 / 1;
+}
+
+#show-todo-modal:hover {
+  transform: scale(1.1);
+}
+
+#show-project-modal {
+  height: 100%;
+  padding: 0rem 1rem;
+  text-wrap: nowrap;
+  background-color: white;
+  outline: none;
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.1);
+  transition: transform 250ms ease;
+}
+
+#show-project-modal:hover {
+  transform: scale(1.1);
+}
+
+#pfp {
   aspect-ratio: 1 / 1;
   height: 50px;
   background-color: white;
   border-radius: 50%;
+  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.1);
 }
 
 /*
