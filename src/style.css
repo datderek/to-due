@@ -17,6 +17,7 @@
 body {
   height: 100vh;
   position: relative;
+  background-color: var(--light-gray);
 }
 
 /* 
@@ -65,7 +66,6 @@ form {
   width: 100%;
 }
 
-
 dialog > button {
   padding: 0.5rem;
   width: 100%;
@@ -87,11 +87,59 @@ dialog > button:hover {
   height: 100%;
 }
 
+/*
+ * Navbar section
+ */
 #nav {
-  background-color: gray;
   display: flex;
   align-items: center;
   padding: 1rem;
+}
+
+.dropdown {
+  position: relative;
+  width: 200px;
+  border-radius: 1rem 1rem 1rem 1rem;
+  background-color: white;
+  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.1);
+}
+
+#current-project {
+  padding: 0.5rem;
+  text-align: center;
+  text-wrap: nowrap;
+  overflow: hidden;
+}
+
+#projects {
+  display: none;
+  position: absolute;
+  background-color: white;
+  width: 100%;
+  overflow: hidden;
+}
+
+.project {
+  display: block;
+  border: none;
+  background: none;
+  padding: 0.5rem;
+  text-wrap: nowrap;
+  width: 100%;
+}
+
+.dropdown:hover {
+  border-radius: 1rem 1rem 0rem 0rem;
+}
+
+.dropdown:hover #projects {
+  display: block;
+  border-radius: 0rem 0rem 1rem 1rem;
+  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.1);
+}
+
+.project:hover {
+  background-color: var(--light-gray);
 }
 
 #nav > #show-todo-modal {
@@ -104,7 +152,6 @@ dialog > button:hover {
   background-color: white;
   border-radius: 50%;
 }
-
 
 /*
  * Modal drop-in animation
