@@ -1,12 +1,12 @@
 export default class Display {
   static content = document.querySelector("#content");
-  static projects = document.querySelector("#projects");
+  static nav = document.querySelector("#nav");
 
   static renderProjectTab(project) {
     const button = document.createElement("button");
     button.dataset.title = project.title;
     button.innerText = project.title;
-    this.projects.appendChild(button);
+    this.nav.appendChild(button);
   }
 
   static renderProject(project) {
