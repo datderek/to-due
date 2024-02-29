@@ -1,10 +1,9 @@
 import Project from "./project";
 import Display from "./display";
-import Todo from "./todo";
 
 export default class App {
-  static createProjectForm = document.querySelector("#new-project");
-  static createTodoForm = document.querySelector("#new-todo");
+  static projectForm = document.querySelector("#new-project");
+  static todoForm = document.querySelector("#new-todo");
   static currentProject;
   static projects = [];
 
@@ -12,11 +11,24 @@ export default class App {
     App.attachFormListeners();
   }
 
+  /**
+   * Attaches submission listeners to new project and todo forms
+   */
   static attachFormListeners() {
-    App.createProjectForm.addEventListener("submit", App.addProject);
-    App.createTodoForm.addEventListener("submit", App.addTodo);
+    App.projectForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      App.handleProjectForm();
+    });
+    App.todoForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      App.handleTodoForm();
+    });
   }
 
+  /**
+   * Attaches listener to project tab, allowing the user to switch tabs
+   * @param {project} 
+   */
   static attachProjectTabListener(project) {
     const projectTab = document.querySelector(`[data-title="${project.title}"]`);
     projectTab.addEventListener("click", () => {
@@ -25,39 +37,63 @@ export default class App {
     });
   }
 
-  static addProject(event) {
-    event.preventDefault();
-    const formData = new FormData(App.createProjectForm);
-    const projectTitle = formData.get("project-title");
-    const projectDescription = formData.get("project-description");
-
-    // Displays an error message and exits if project title is not unique
+  /**
+   * Creates a project from user inputted form data
+   * 
+   * @returns the newly created Project or null on failure
+   */
+  static createProject(title, description) {
     for (const project of App.projects) {
-      if (project.title === projectTitle) {
-        //TODO: Display error - title must be unique
-        console.log("Please provide a unique name for your project");
-        App.createProjectForm.reset();
-        return;
+      if (project.title === title) {
+        return null;
       }
     }
 
-    const project = new Project(projectTitle, projectDescription);
-    Display.renderProjectTab(project);
-    App.attachProjectTabListener(project);
+    const project = new Project(title, description);
     App.projects.push(project);
-    App.createProjectForm.reset();
+    return project;
   }
 
-  static addTodo(event) {
-    event.preventDefault();
-    const formData = new FormData(App.createTodoForm);
+  /**
+   * Handles project form submission by attempting to create a new project. On
+   * success it adds projects tab and switches to the new project.
+   */
+  static handleProjectForm() {
+    const formData = new FormData(App.projectForm);
+    const title = formData.get("project-title");
+    const description = formData.get("project-description");
+
+    const project = App.createProject(title, description);
+    if (project) {
+      App.currentProject = project;
+      Display.renderProject(App.currentProject);
+      Display.renderProjectTab(project);
+      App.attachProjectTabListener(project);
+    } else {
+      //TODO: Display error - title must be unique
+      console.log("Please provide a unique name for your project");
+    }
+    App.projectForm.reset();
+  }
+
+  /**
+   * Handles todo form submission by attempting to create a new project. On
+   * success it re-renders the current project tab to display the new todo.
+   */
+  static handleTodoForm() {
+    const formData = new FormData(App.todoForm);
     const title = formData.get("todo-title");
     const description = formData.get("todo-description");
     const priority = formData.get("todo-priority");
     const dueDate = formData.get("todo-duedate");
 
-    const todo = new Todo(title, description, priority, dueDate);
-    App.currentProject.addTodo(todo);
-    Display.renderProject(App.currentProject);
+    const todo = App.currentProject.createTodo(title, description, priority, dueDate);
+    if (todo) {
+      Display.renderProject(App.currentProject);
+    } else {
+      //TODO: Display error - title must be unique
+      console.log("Please provide a unique name for your todo");
+    }
+    App.todoForm.reset();
   }
 }

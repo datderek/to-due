@@ -1,3 +1,5 @@
+import Todo from "./todo";
+
 export default class Project {
   constructor(title, description = "") {
     this.title = title;
@@ -37,5 +39,22 @@ export default class Project {
 
   removeTodo(index) {
     this._todos.splice(index, 1);
+  }
+
+  /**
+   * Creates a todo from user inputted form data
+   * 
+   * @returns the newly created Project or null on failure
+   */
+  createTodo(title, description, priority, dueDate) {
+    for (const todo of this.todos) {
+      if (todo.title === title) {
+        return null;
+      }
+    }
+
+    const todo = new Todo(title, description, priority, dueDate);
+    this.addTodo(todo);
+    return todo;
   }
 }
