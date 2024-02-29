@@ -23,13 +23,17 @@ body {
  * Form modals 
  */
 .modal {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   border: 1px solid var(--light-gray);
   border-radius: 1rem;
   box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.1);
+}
+
+.modal[open] {
+  animation: drop-in 250ms ease-out;
 }
 
 .modal > h2 {
@@ -99,5 +103,14 @@ dialog > button:hover {
   height: 50px;
   background-color: white;
   border-radius: 50%;
+}
+
+
+/*
+ * Modal drop-in animation
+ */
+@keyframes drop-in {
+  0% { transform: translate(-50%, -250%); }
+  100% { transform: translate(-50%, -50%); }
 }
 
