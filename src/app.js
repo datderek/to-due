@@ -2,13 +2,14 @@ import Project from "./project";
 import Display from "./display";
 
 export default class App {
-  static projectForm = document.querySelector("#new-project");
-  static todoForm = document.querySelector("#new-todo");
+  static projectForm = document.getElementById("project-form");
+  static todoForm = document.getElementById("todo-form");
   static currentProject;
   static projects = [];
 
   static start() {
     App.attachFormListeners();
+    App.attachButtonListeners();
   }
 
   /**
@@ -16,13 +17,25 @@ export default class App {
    */
   static attachFormListeners() {
     App.projectForm.addEventListener("submit", (e) => {
-      e.preventDefault();
       App.handleProjectForm();
     });
     App.todoForm.addEventListener("submit", (e) => {
-      e.preventDefault();
       App.handleTodoForm();
     });
+  }
+
+  static attachButtonListeners() {
+    const showProjectModalBtn = document.getElementById("show-project-modal");
+    showProjectModalBtn.addEventListener('click', () => {
+      const projectModal = document.getElementById("project-modal");
+      projectModal.showModal();
+    })
+
+    const showTodoModalBtn = document.getElementById("show-todo-modal")
+    showTodoModalBtn.addEventListener('click', () => {
+      const todoModal = document.getElementById("todo-modal");
+      todoModal.showModal();
+    })
   }
 
   /**

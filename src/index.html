@@ -8,32 +8,38 @@
 <body>
   <nav id="projects">
   </nav>
-  <form id="new-project">
-    <h2>Create a New Project</h2>
-    <label for="project-title">Project Title*</label>
-    <input type="text" id="project-title" name="project-title" required>
+  <dialog id="project-modal">
+    <form id="project-form" method="dialog">
+      <h2>Create a New Project</h2>
+      <label for="project-title">Project Title*</label>
+      <input type="text" id="project-title" name="project-title" required>
 
-    <label for="project-description">Description</label>
-    <input type="text" id="project-description" name="project-description">
+      <label for="project-description">Description</label>
+      <input type="text" id="project-description" name="project-description">
 
-    <button type="submit">Create</button>
-  </form>
-  <form id="new-todo">
-    <h2>Add a Todo</h2>
-    <label for="todo-title">Todo Title*</label>
-    <input type="text" id="todo-title" name="todo-title" required>
+      <button type="submit">Create</button>
+    </form>
+  </dialog>
+  <button id="show-project-modal">New Project</button>
+  <dialog id="todo-modal">
+    <form id="todo-form" method="dialog">
+      <h2>Add a Todo</h2>
+      <label for="todo-title">Todo Title*</label>
+      <input type="text" id="todo-title" name="todo-title" required>
 
-    <label for="todo-description">Description</label>
-    <input type="text" id="todo-description" name="todo-description">
+      <label for="todo-description">Description</label>
+      <input type="text" id="todo-description" name="todo-description">
 
-    <label for="todo-priority">Priority</label>
-    <input type="number" id="todo-priority" name="todo-priority" min="0" max="5">
+      <label for="todo-priority">Priority</label>
+      <input type="number" id="todo-priority" name="todo-priority" min="0" max="5">
 
-    <label for="todo-duedate">Due Date</label>
-    <input type="date" id="todo-duedate" name="todo-duedate">
+      <label for="todo-duedate">Due Date</label>
+      <input type="date" id="todo-duedate" name="todo-duedate">
 
-    <button type="submit">Create</button>
-  </form>
+      <button type="submit">Create</button>
+    </form>
+  </dialog>
+  <button id="show-todo-modal">New Todo</button>
   <div id="content"></div>
 </body>
 </html>
