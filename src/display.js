@@ -1,5 +1,7 @@
 export default class Display {
-  static content = document.querySelector("#content");
+  static backlog = document.querySelector("#backlog > .content");
+  static inProgress = document.querySelector("#in-progress > .content");
+  static completed = document.querySelector("#completed > .content");
   static nav = document.querySelector("#projects");
 
   static renderProjectTab(project) {
@@ -14,18 +16,18 @@ export default class Display {
     Display.clearContent();
     const currentProject = document.getElementById("current-project");
     currentProject.textContent = project.title;
-    const list = document.createElement("ul");
     for (const task of project.todos) {
-      const listItem = document.createElement("li");
+      const listItem = document.createElement("div");
       listItem.textContent = `${task.title}`;
-      list.appendChild(listItem);
+      this.backlog.appendChild(listItem);
     }
-    this.content.appendChild(list);
   }
 
   static clearContent() {
-    while (this.content.firstChild) {
-      this.content.removeChild(content.firstChild);
-    }
+    [this.backlog, this.inProgress, this.completed].forEach((section) => {
+      while (section.firstChild) {
+        section.removeChild(section.firstChild);
+      }
+    });
   }
 }
