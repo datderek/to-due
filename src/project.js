@@ -57,4 +57,16 @@ export default class Project {
     this.addTodo(todo);
     return todo;
   }
+
+  /**
+   * Updates the status of the specified todo
+   */
+  changeStatus(todoTitle, newStatus) {
+    for (const todo of this._todos) {
+      if (todo.title === todoTitle) {
+        todo.status = newStatus
+        return;
+      }
+    }
+  }
 }

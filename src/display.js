@@ -18,7 +18,12 @@ export default class Display {
     currentProject.textContent = project.title;
     for (const task of project.todos) {
       const listItem = document.createElement("div");
-      listItem.textContent = `${task.title}`;
+      listItem.classList.add("item");
+
+      const title = document.createElement("div");
+      title.textContent = `${task.title}`;
+
+      listItem.appendChild(title);
       this.backlog.appendChild(listItem);
     }
   }

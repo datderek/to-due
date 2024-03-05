@@ -1,10 +1,11 @@
 export default class Todo {
-  constructor(title, description = "", priority = 0, dueDate = "") {
+  constructor(title, description = "", priority = 0, dueDate = "", status = "backlog") {
     // Calls setters
     this.title = title;
     this.description = description;
     this.priority = priority;
     this.dueDate = dueDate;
+    this.status = status;
   }
 
   get title() {
@@ -38,5 +39,16 @@ export default class Todo {
       //TODO: Error class, log error - priority must be between 0 and 5
     }
     this._priority = val;
+  }
+
+  get status() {
+    return this._status;
+  }
+
+  set status(val) {
+    if (val !== "backlog" || val !== "in-progress" || val !== "completed") {
+      //TODO: Error class, log error - invalid status type
+    }
+    this._status = val;
   }
 }

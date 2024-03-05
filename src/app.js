@@ -38,6 +38,15 @@ export default class App {
     })
   }
 
+  static attachTodoListeners() {
+    const backlogTodos = document.querySelectorAll("#backlog .item");
+    backlogTodos.forEach((backlogTodo) => {
+      backlogTodo.addEventListener("click", (event) => {
+        console.log(backlogTodo.textContent);
+      });
+    });
+  }
+
   /**
    * Attaches listener to project tab, allowing the user to switch tabs
    * @param {project} 
@@ -103,6 +112,7 @@ export default class App {
     const todo = App.currentProject.createTodo(title, description, priority, dueDate);
     if (todo) {
       Display.renderProject(App.currentProject);
+      App.attachTodoListeners();
     } else {
       //TODO: Display error - title must be unique
       console.log("Please provide a unique name for your todo");
