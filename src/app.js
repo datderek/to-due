@@ -44,11 +44,16 @@ export default class App {
       backlogTodo.addEventListener("click", () => {
         const todo = App.currentProject.getTodo(backlogTodo.textContent);
         const modal = Display.renderTodo(todo);
-        modal.addEventListener("close", () => {
-          modal.remove();
-        })
+        App.attachTodoModalListeners(modal);
       });
     });
+  }
+
+  static attachTodoModalListeners(modal) {
+    modal.addEventListener("close", () => {
+      modal.remove();
+    })
+    
   }
 
   /**

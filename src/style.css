@@ -3,7 +3,8 @@
 :root {
   box-sizing: border-box;
   font-family: "Roboto", Arial, Helvetica, sans-serif;
-  --light-gray: #E5E7EB
+  --light-gray: #E5E7EB;
+  --tomato: #F96A4D;
 }
 
 * {
@@ -67,7 +68,7 @@ form {
   width: 100%;
 }
 
-dialog > button {
+#project-modal > button, #todo-modal > button {
   padding: 0.5rem;
   width: 100%;
   background: none;
@@ -78,7 +79,7 @@ dialog > button {
   transition: background-color 150ms ease;
 }
 
-dialog > button:hover {
+#project-modal > button:hover, #todo-modal > button:hover {
   background-color: var(--light-gray);
 }
 
@@ -117,6 +118,7 @@ dialog > button:hover {
 #current-project {
   padding: 0.5rem;
   line-height: 1em;
+  font-weight: bold;
   text-align: center;
   text-wrap: nowrap;
   overflow: hidden;
@@ -155,7 +157,7 @@ dialog > button:hover {
 }
 
 /*
- * Todo and Project Form Modals
+ * Todo and Project Modal Buttons
  */
 #show-todo-modal {
   height: 100%;
@@ -181,6 +183,7 @@ dialog > button:hover {
 #show-project-modal {
   height: 100%;
   padding: 0rem 1rem;
+  font-weight: bold;
   text-wrap: nowrap;
   background-color: white;
   outline: none;
@@ -256,10 +259,15 @@ dialog > button:hover {
 
 .item-modal {
   width: clamp(300px, 50%, 450px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .item-modal-header {
-  padding: 0.5rem 0.5rem 0;
+  padding: 0.5rem 0.5rem 0rem;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   column-gap: 0.5rem;
@@ -299,6 +307,27 @@ dialog > button:hover {
   padding: 0.5rem;
 }
 
+.item-modal-delete {
+  padding: 0.5rem;
+  width: 150px;
+  outline: none;
+  border: none;
+  border-radius: 1rem;
+  font-weight: normal;
+  color: white;
+  background-color: var(--tomato);
+  margin-bottom: 0.5rem;
+}
+
+.item-modal label {
+  font-weight: bold;
+}
+
+.item-modal select, .item-modal option {
+  outline: none;
+  border: 1px solid var(--light-gray);
+  text-transform: capitalize;
+}
 /*
  * Modal drop-in animation
  */

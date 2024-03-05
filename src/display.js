@@ -43,6 +43,7 @@ export default class Display {
     title.textContent = todo.title;
     header.appendChild(title);
 
+    // Conditionally render if the user inputted a priority, duedate, or description
     if (todo.priority || todo.dueDate) {
       const details = document.createElement("div");
       details.classList.add("item-modal-details");
@@ -68,9 +69,35 @@ export default class Display {
       dialog.appendChild(description);
     }
 
+    Display.renderTodoStatusDropdown(todo, dialog);
+
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add("item-modal-delete");
+    deleteButton.textContent = "Delete"
+    dialog.appendChild(deleteButton);
+
     body.appendChild(dialog);
     dialog.showModal();
     return dialog;
+  }
+
+  static renderTodoStatusDropdown(todo, dialog) {
+    const wrapper = document.createElement("div");
+    const label = document.createElement("label");
+    label.textContent = "Status: "
+    const statusSelect = document.createElement("select");
+    statusSelect.setAttribute("selected", todo.status);
+
+    ["backlog", "in-progress", "completed"].forEach((status) => {
+      const option = document.createElement("option");
+      option.setAttribute("value", status);
+      option.textContent = status;
+      statusSelect.appendChild(option);
+    })
+
+    wrapper.appendChild(label);
+    wrapper.appendChild(statusSelect);
+    dialog.appendChild(wrapper);
   }
 
   static clearContent() {
