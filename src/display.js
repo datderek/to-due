@@ -31,19 +31,29 @@ export default class Display {
   static renderTodo(todo) {
     const body = document.querySelector("body");
     const dialog = document.createElement("dialog");
+    const header = document.createElement("div");
+    const details = document.createElement("div");
     const title = document.createElement("h2");
     const priority = document.createElement("div");
     const dueDate = document.createElement("div");
     const description = document.createElement("div");
 
-
     dialog.classList.add("modal");
+    dialog.classList.add("item-modal")
+    header.classList.add("item-modal-header");
+    details.classList.add("item-modal-details");
+    description.classList.add("item-modal-description");
     title.textContent = todo.title;
+    priority.textContent = `Priority: ${todo.priority}`;
+    dueDate.textContent = `Due: ${todo.dueDate}`;
     description.textContent = todo.description;
 
-    dialog.appendChild(title);
-    dialog.appendChild(priority);
-    dialog.appendChild(dueDate);
+    header.appendChild(title);
+    details.appendChild(priority);
+    details.appendChild(dueDate);
+    header.appendChild(title);
+    header.append(details);
+    dialog.appendChild(header);
     dialog.appendChild(description);
     body.appendChild(dialog);
     dialog.showModal();
