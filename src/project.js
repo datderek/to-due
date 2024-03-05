@@ -41,16 +41,24 @@ export default class Project {
     this._todos.splice(index, 1);
   }
 
+  getTodo(title) {
+    for (const todo of this.todos) {
+      if (todo.title === title) {
+        return todo;
+      }
+    }
+
+    return null;
+  } 
+
   /**
    * Creates a todo from user inputted form data
    * 
    * @returns the newly created Project or null on failure
    */
   createTodo(title, description, priority, dueDate) {
-    for (const todo of this.todos) {
-      if (todo.title === title) {
-        return null;
-      }
+    if (this.getTodo(title)) {
+      return null;
     }
 
     const todo = new Todo(title, description, priority, dueDate);
@@ -61,12 +69,9 @@ export default class Project {
   /**
    * Updates the status of the specified todo
    */
-  changeStatus(todoTitle, newStatus) {
-    for (const todo of this._todos) {
-      if (todo.title === todoTitle) {
-        todo.status = newStatus
-        return;
-      }
-    }
+  changeStatus(title, newStatus) {
+    const todo = this.getTodo(title);
+    todo.status = newStatus;
+    return;
   }
 }

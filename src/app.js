@@ -42,7 +42,7 @@ export default class App {
     const backlogTodos = document.querySelectorAll("#backlog .item");
     backlogTodos.forEach((backlogTodo) => {
       backlogTodo.addEventListener("click", (event) => {
-        console.log(backlogTodo.textContent);
+        const todo = App.currentProject.getTodo(backlogTodo.textContent);
       });
     });
   }
