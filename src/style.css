@@ -285,12 +285,12 @@ dialog > button:hover {
   text-wrap: nowrap;
 }
 
-.item-modal-details div:first-child::before {
+.item-modal-details .item-priority::before {
   content: "Priority: ";
   font-weight: bold;
 }
 
-.item-modal-details div:last-child::before {
+.item-modal-details .item-duedate::before {
   content: "Due: ";
   font-weight: bold;
 }
