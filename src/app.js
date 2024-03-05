@@ -43,6 +43,7 @@ export default class App {
     backlogTodos.forEach((backlogTodo) => {
       backlogTodo.addEventListener("click", (event) => {
         const todo = App.currentProject.getTodo(backlogTodo.textContent);
+        Display.renderTodo(todo);
       });
     });
   }

@@ -28,6 +28,28 @@ export default class Display {
     }
   }
 
+  static renderTodo(todo) {
+    const body = document.querySelector("body");
+    const dialog = document.createElement("dialog");
+    const title = document.createElement("h2");
+    const priority = document.createElement("div");
+    const dueDate = document.createElement("div");
+    const description = document.createElement("div");
+
+
+    dialog.classList.add("modal");
+    title.textContent = todo.title;
+    description.textContent = todo.description;
+
+    dialog.appendChild(title);
+    dialog.appendChild(priority);
+    dialog.appendChild(dueDate);
+    dialog.appendChild(description);
+    body.appendChild(dialog);
+    dialog.showModal();
+    return;
+  }
+
   static clearContent() {
     [this.backlog, this.inProgress, this.completed].forEach((section) => {
       while (section.firstChild) {
