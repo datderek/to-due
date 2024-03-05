@@ -43,9 +43,10 @@ export default class Display {
     header.classList.add("item-modal-header");
     details.classList.add("item-modal-details");
     description.classList.add("item-modal-description");
+
     title.textContent = todo.title;
-    priority.textContent = `Priority: ${todo.priority}`;
-    dueDate.textContent = `Due: ${todo.dueDate}`;
+    priority.textContent = todo.priority;
+    dueDate.textContent = todo.dueDate;
     description.textContent = todo.description;
 
     header.appendChild(title);
@@ -57,7 +58,7 @@ export default class Display {
     dialog.appendChild(description);
     body.appendChild(dialog);
     dialog.showModal();
-    return;
+    return dialog;
   }
 
   static clearContent() {

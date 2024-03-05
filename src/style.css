@@ -285,6 +285,16 @@ dialog > button:hover {
   text-wrap: nowrap;
 }
 
+.item-modal-details div:first-child::before {
+  content: "Priority: ";
+  font-weight: bold;
+}
+
+.item-modal-details div:last-child::before {
+  content: "Due: ";
+  font-weight: bold;
+}
+
 .item-modal-description {
   padding: 0.5rem;
 }

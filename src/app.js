@@ -41,9 +41,12 @@ export default class App {
   static attachTodoListeners() {
     const backlogTodos = document.querySelectorAll("#backlog .item");
     backlogTodos.forEach((backlogTodo) => {
-      backlogTodo.addEventListener("click", (event) => {
+      backlogTodo.addEventListener("click", () => {
         const todo = App.currentProject.getTodo(backlogTodo.textContent);
-        Display.renderTodo(todo);
+        const modal = Display.renderTodo(todo);
+        modal.addEventListener("close", () => {
+          modal.remove();
+        })
       });
     });
   }
