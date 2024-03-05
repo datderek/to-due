@@ -43,7 +43,6 @@ export default class Display {
     title.textContent = todo.title;
     header.appendChild(title);
 
-
     if (todo.priority || todo.dueDate) {
       const details = document.createElement("div");
       details.classList.add("item-modal-details");

@@ -139,7 +139,7 @@ dialog > button:hover {
   width: 100%;
 }
 
-.dropdown:hover {
+.dropdown:has(#projects):has(button):hover {
   border-radius: 1rem 1rem 0rem 0rem;
   border-bottom: none;
 }
