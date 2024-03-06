@@ -53,16 +53,16 @@ export default class Project {
   } 
 
   /**
-   * Creates a todo from user inputted form data
+   * Creates a todo from user inputted form data and adds it to the project
    * 
    * @returns the newly created Project or null on failure
    */
-  createTodo(title, description, priority, dueDate) {
+  createTodo(title, description, priority, dueDate, status) {
     if (this.getTodo(title)) {
       return null;
     }
 
-    const todo = new Todo(title, description, priority, dueDate);
+    const todo = new Todo(title, description, priority, dueDate, status);
     this.addTodo(todo);
     return todo;
   }

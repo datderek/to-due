@@ -26,7 +26,6 @@ export default class Display {
       title.textContent = `${todo.title}`;
 
       listItem.appendChild(title);
-
       if (todo.status === "backlog") {
         Display.backlog.appendChild(listItem);
       } else if (todo.status === "in-progress") {

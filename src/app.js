@@ -8,6 +8,10 @@ export default class App {
   static projects = [];
 
   static start() {
+    if (localStorage.getItem("projects")) {
+      App.loadProjects();
+      App.loadPreviousDisplay();
+    }
     App.attachFormListeners();
     App.attachButtonListeners();
   }
@@ -60,6 +64,7 @@ export default class App {
         App.currentProject.changeStatus(title, newStatus)
         Display.renderProject(App.currentProject);
         App.attachTodoListeners();
+        App.saveProject();
       }
       modal.remove();
     })
@@ -69,6 +74,7 @@ export default class App {
       App.currentProject.removeTodo(todo);
       Display.renderProject(App.currentProject);
       App.attachTodoListeners();
+      App.saveProject();
       modal.remove();
     })
   }
@@ -81,8 +87,9 @@ export default class App {
     const projectTab = document.querySelector(`[data-title="${project.title}"]`);
     projectTab.addEventListener("click", () => {
       App.currentProject = project;
-      Display.renderProject(project);
+      Display.renderProject(App.currentProject);
       App.attachTodoListeners();
+      App.saveProject();
     });
   }
 
@@ -118,6 +125,7 @@ export default class App {
       Display.renderProject(App.currentProject);
       Display.renderProjectTab(project);
       App.attachProjectTabListener(project);
+      App.saveProject();
     } else {
       //TODO: Display error - title must be unique
       console.log("Please provide a unique name for your project");
@@ -140,10 +148,43 @@ export default class App {
     if (todo) {
       Display.renderProject(App.currentProject);
       App.attachTodoListeners();
+      App.saveProject();
     } else {
       //TODO: Display error - title must be unique
       console.log("Please provide a unique name for your todo");
     }
     App.todoForm.reset();
+  }
+
+  static saveProject() {
+    localStorage.setItem("projects", JSON.stringify(App.projects));
+    localStorage.setItem("currentProject", App.currentProject.title);
+  }
+
+  static loadProjects() {
+    // Loads in projects and creates project object
+    const loadedProjects = JSON.parse(localStorage.getItem("projects"));
+    const loadedCurrentProjectTitle = localStorage.getItem("currentProject");
+    loadedProjects.forEach((loadedProject) => {
+      const project = new Project(loadedProject._title, loadedProject._description);
+      loadedProject._todos.forEach((loadedTodo) => {
+        project.createTodo(loadedTodo._title, loadedTodo._description, loadedTodo._priority, loadedTodo._dueDate, loadedTodo._status);
+      })
+      App.projects.push(project);
+
+      if (project.title === loadedCurrentProjectTitle) {
+        App.currentProject = project;
+      }
+    });
+  }
+
+  static loadPreviousDisplay() {
+    App.projects.forEach((project) => {
+      Display.renderProjectTab(project);
+      App.attachProjectTabListener(project);
+    });
+
+    Display.renderProject(App.currentProject);
+    App.attachTodoListeners();
   }
 }
