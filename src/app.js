@@ -50,10 +50,11 @@ export default class App {
   }
 
   static attachTodoModalListeners(modal) {
+    const title = modal.querySelector("h2").textContent;
+    const todo = App.currentProject.getTodo(title);
+
     modal.addEventListener("close", () => {
-      // Grab the current todo associated with the modal
-      const title = modal.querySelector("h2").textContent;
-      const oldStatus = App.currentProject.getTodo(title).status;
+      const oldStatus = todo.status;
       const newStatus = modal.querySelector("select").value;
       if (newStatus !== oldStatus) {
         App.currentProject.changeStatus(title, newStatus)
@@ -63,6 +64,13 @@ export default class App {
       modal.remove();
     })
 
+    const deleteButton = modal.querySelector("button");
+    deleteButton.addEventListener("click", () => {
+      App.currentProject.removeTodo(todo);
+      Display.renderProject(App.currentProject);
+      App.attachTodoListeners();
+      modal.remove();
+    })
   }
 
   /**

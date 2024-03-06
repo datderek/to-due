@@ -37,8 +37,9 @@ export default class Project {
     this._todos.push(todo);
   }
 
-  removeTodo(index) {
-    this._todos.splice(index, 1);
+  removeTodo(todo) {
+    const title = todo.title;
+    this._todos = this._todos.filter((todo) => todo.title !== title);
   }
 
   getTodo(title) {
