@@ -39,10 +39,10 @@ export default class App {
   }
 
   static attachTodoListeners() {
-    const backlogTodos = document.querySelectorAll("#backlog .item");
-    backlogTodos.forEach((backlogTodo) => {
-      backlogTodo.addEventListener("click", () => {
-        const todo = App.currentProject.getTodo(backlogTodo.textContent);
+    const items = document.querySelectorAll("#backlog .item, #in-progress .item, #completed .item");
+    items.forEach((item) => {
+      item.addEventListener("click", () => {
+        const todo = App.currentProject.getTodo(item.textContent);
         const modal = Display.renderTodo(todo);
         App.attachTodoModalListeners(modal);
       });
@@ -51,9 +51,18 @@ export default class App {
 
   static attachTodoModalListeners(modal) {
     modal.addEventListener("close", () => {
+      // Grab the current todo associated with the modal
+      const title = modal.querySelector("h2").textContent;
+      const oldStatus = App.currentProject.getTodo(title).status;
+      const newStatus = modal.querySelector("select").value;
+      if (newStatus !== oldStatus) {
+        App.currentProject.changeStatus(title, newStatus)
+        Display.renderProject(App.currentProject);
+        App.attachTodoListeners();
+      }
       modal.remove();
     })
-    
+
   }
 
   /**
@@ -64,7 +73,8 @@ export default class App {
     const projectTab = document.querySelector(`[data-title="${project.title}"]`);
     projectTab.addEventListener("click", () => {
       App.currentProject = project;
-      Display.renderProject(project)
+      Display.renderProject(project);
+      App.attachTodoListeners();
     });
   }
 

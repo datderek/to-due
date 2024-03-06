@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 export default class Display {
   static backlog = document.querySelector("#backlog > .content");
   static inProgress = document.querySelector("#in-progress > .content");
@@ -16,15 +18,22 @@ export default class Display {
     Display.clearContent();
     const currentProject = document.getElementById("current-project");
     currentProject.textContent = project.title;
-    for (const task of project.todos) {
+    for (const todo of project.todos) {
       const listItem = document.createElement("div");
       listItem.classList.add("item");
 
       const title = document.createElement("div");
-      title.textContent = `${task.title}`;
+      title.textContent = `${todo.title}`;
 
       listItem.appendChild(title);
-      this.backlog.appendChild(listItem);
+
+      if (todo.status === "backlog") {
+        Display.backlog.appendChild(listItem);
+      } else if (todo.status === "in-progress") {
+        Display.inProgress.appendChild(listItem);
+      } else {
+        Display.completed.appendChild(listItem);
+      }
     }
   }
 
@@ -56,7 +65,7 @@ export default class Display {
       if (todo.dueDate) {
         const dueDate = document.createElement("div");
         dueDate.classList.add("item-duedate");
-        dueDate.textContent = todo.dueDate;
+        dueDate.textContent = format(new Date(todo.dueDate), "MM/dd");
         details.appendChild(dueDate);
       }
       header.appendChild(details);
@@ -86,12 +95,14 @@ export default class Display {
     const label = document.createElement("label");
     label.textContent = "Status: "
     const statusSelect = document.createElement("select");
-    statusSelect.setAttribute("selected", todo.status);
 
     ["backlog", "in-progress", "completed"].forEach((status) => {
       const option = document.createElement("option");
       option.setAttribute("value", status);
       option.textContent = status;
+      if (todo.status == status) {
+        option.selected = true;
+      }
       statusSelect.appendChild(option);
     })
 
